@@ -20,8 +20,12 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public void criarCliente(Cliente cliente){
-        clienteRepository.save(cliente);
+    public Cliente criarCliente(Long idServico, Cliente cliente){
+        Servico servicoExistente = servicoRepository.findById(idServico).orElseThrow(
+                () -> new RuntimeException("Serviço indisponível"));
+        cliente.setServicos(servicoExistente);
+        return clienteRepository.save(cliente);
+
     }
 
     public void atualizarCliente(Long id, Cliente cliente){
@@ -30,7 +34,7 @@ public class ClienteService {
 
         Cliente clienteAtualizado = Cliente.builder()
                 .nome(cliente.getNome() != null ? cliente.getNome() : clienteExistente.getNome())
-                .servico(cliente.getServico() != null ? cliente.getServico() : clienteExistente.getServico())
+                .servicos(cliente.getServicos() != null ? cliente.getServicos() : clienteExistente.getServicos())
                 .id(clienteExistente.getId())
                 .build();
 

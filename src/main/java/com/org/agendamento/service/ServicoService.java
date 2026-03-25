@@ -1,8 +1,6 @@
 package com.org.agendamento.service;
 
-import com.org.agendamento.model.Cliente;
 import com.org.agendamento.model.Servico;
-import com.org.agendamento.repository.ClienteRepository;
 import com.org.agendamento.repository.ServicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,18 +12,13 @@ import java.util.List;
 public class ServicoService {
 
     private final ServicoRepository servicoRepository;
-    private final ClienteRepository clienteRepository;
 
     public List<Servico> buscarTodos(){
         return servicoRepository.findAll();
     }
 
-    public void criarServico(Long id, Servico servico){
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Cliente não encontrado."));
-
-        cliente.setServico(servico);
-        servicoRepository.save(servico);
+    public Servico criarServico(Servico servico){
+        return servicoRepository.save(servico);
     }
 
 
@@ -36,7 +29,6 @@ public class ServicoService {
         Servico servicoAtualizado = Servico.builder()
                 .servico(servico.getServico() != null ? servico.getServico() : servicoAtual.getServico())
                 .valor(servico.getValor() != 0 ? servico.getValor() : servicoAtual.getValor())
-                .dateTime(servico.getDateTime() != null ? servico.getDateTime() : servicoAtual.getDateTime())
                 .id(servicoAtual.getId())
                 .build();
 
@@ -44,7 +36,7 @@ public class ServicoService {
 
     }
 
-    public void apagarAgendamento(Long id){
+    public void apagarServico(Long id){
         servicoRepository.deleteById(id);
     }
 }

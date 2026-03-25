@@ -22,10 +22,9 @@ public class ClienteController {
         return ResponseEntity.ok().body(service.buscarTodos());
     }
 
-    @PostMapping
-    public ResponseEntity<Void> criarCliente(@RequestBody Cliente cliente){
-        service.criarCliente(cliente);
-        return ResponseEntity.ok().build();
+    @PostMapping("/{idServico}")
+    public ResponseEntity<Cliente> criarCliente(@PathVariable Long idServico, @RequestBody Cliente cliente){
+        return ResponseEntity.ok(service.criarCliente(idServico, cliente));
     }
 
     @PutMapping("/{id}")

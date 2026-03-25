@@ -1,10 +1,8 @@
 package com.org.agendamento.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,10 +16,10 @@ public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "servico", length = 100)
     private String servico;
+    @Column(name = "valor", length = 10)
     private double valor;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime dateTime;
 
 }

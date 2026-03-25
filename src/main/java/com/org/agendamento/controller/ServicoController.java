@@ -20,10 +20,9 @@ public class ServicoController {
         return ResponseEntity.ok().body(service.buscarTodos());
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Void> agendar(@PathVariable Long id, @RequestBody Servico servico){
-        service.criarServico(id, servico);
-        return ResponseEntity.ok().build();
+    @PostMapping
+    public ResponseEntity<Servico> criarServico(@RequestBody Servico servico){
+        return ResponseEntity.ok(service.criarServico(servico));
     }
 
 
@@ -36,7 +35,7 @@ public class ServicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarAgendamento(@PathVariable Long id){
-        service.apagarAgendamento(id);
+        service.apagarServico(id);
         return ResponseEntity.ok().build();
     }
 }
