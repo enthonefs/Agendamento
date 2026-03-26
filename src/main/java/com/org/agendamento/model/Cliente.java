@@ -24,7 +24,7 @@ public class Cliente {
     private String nome;
     @Column(name = "telefone", length = 11, unique = true)
     private String telefone;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime horario;
 
     @ManyToOne(cascade = CascadeType.ALL)
