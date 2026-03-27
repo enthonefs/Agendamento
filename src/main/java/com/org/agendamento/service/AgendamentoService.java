@@ -1,5 +1,6 @@
 package com.org.agendamento.service;
 
+import com.org.agendamento.exceptions.ConflictException;
 import com.org.agendamento.exceptions.ResourceNotFoundException;
 import com.org.agendamento.model.Agendamento;
 import com.org.agendamento.model.Cliente;
@@ -10,8 +11,10 @@ import com.org.agendamento.repository.ServicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -30,19 +33,30 @@ public class AgendamentoService {
                 () -> new ResourceNotFoundException("Serviço indisponível."));
         agendamento.setServico(servico);
 
+        Long id = agendamento.getServico().getId();
+
         LocalDateTime horaAgendamento = agendamento.getHorario();
         LocalDateTime horaFinal = agendamento.getHorario().plusMinutes(1);
 
-        //FIXME implementar lógica restante do método
+        Agendamento agendados = agendamentoRepository.findByServicoAndDataHoraAgendamentoBetween(id, horaAgendamento, horaFinal);
 
-
-
+        if (Objects.nonNull(agendados)){
+            throw new ConflictException("Horário já preenchido");
+        }
         return agendamentoRepository.save(agendamento);
 
     }
 
     public List<Agendamento> listarAgendamentos(){
         return agendamentoRepository.findAll();
+    }
+
+    public List<Agendamento> listarAgendamentosDoDia(LocalDate data){
+
+        LocalDateTime primeiraHoraDia = data.atStartOfDay();
+        LocalDateTime ultimaHoraDia = data.atTime(23, 59,59);
+
+        return agendamentoRepository.findByDataHoraAgendamentoBetween(primeiraHoraDia, ultimaHoraDia);
     }
 
     public Agendamento atualizarAgendamento(Long id, Agendamento agendamento){

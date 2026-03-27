@@ -31,6 +31,4 @@ public class Agendamento {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime horario;
 
-    @Column(name = "status")
-    private StatusAgendamento status;
 }
