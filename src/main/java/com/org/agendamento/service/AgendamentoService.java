@@ -38,7 +38,7 @@ public class AgendamentoService {
         LocalDateTime horaAgendamento = agendamento.getHorario();
         LocalDateTime horaFinal = agendamento.getHorario().plusMinutes(1);
 
-        Agendamento agendados = agendamentoRepository.findByServicoAndDataHoraAgendamentoBetween(id, horaAgendamento, horaFinal);
+        Agendamento agendados = agendamentoRepository.findByIdAndHorarioBetween(id, horaAgendamento, horaFinal);
 
         if (Objects.nonNull(agendados)){
             throw new ConflictException("Horário já preenchido");
@@ -56,7 +56,7 @@ public class AgendamentoService {
         LocalDateTime primeiraHoraDia = data.atStartOfDay();
         LocalDateTime ultimaHoraDia = data.atTime(23, 59,59);
 
-        return agendamentoRepository.findByDataHoraAgendamentoBetween(primeiraHoraDia, ultimaHoraDia);
+        return agendamentoRepository.findByHorarioBetween(primeiraHoraDia, ultimaHoraDia);
     }
 
     public Agendamento atualizarAgendamento(Long id, Agendamento agendamento){

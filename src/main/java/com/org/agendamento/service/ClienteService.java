@@ -28,7 +28,7 @@ public class ClienteService {
 
         Cliente clienteAtualizado = Cliente.builder()
                 .nome(cliente.getNome() != null ? cliente.getNome() : clienteExistente.getNome())
-                .servicos(cliente.getServicos() != null ? cliente.getServicos() : clienteExistente.getServicos())
+                .telefone(cliente.getTelefone() != null ? cliente.getTelefone() : clienteExistente.getTelefone())
                 .id(clienteExistente.getId())
                 .build();
 
