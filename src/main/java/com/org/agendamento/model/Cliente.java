@@ -22,8 +22,5 @@ public class Cliente {
     @Column(name = "telefone", length = 11, unique = true)
     private String telefone;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "servico_id")
-    private Servico servicos;
 
 }

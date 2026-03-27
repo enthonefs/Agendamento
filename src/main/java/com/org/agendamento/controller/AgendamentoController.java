@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -16,8 +17,13 @@ public class AgendamentoController {
     private final AgendamentoService service;
 
     @GetMapping
-    public ResponseEntity<List<Agendamento>> listarAgendamento(){
+    public ResponseEntity<List<Agendamento>> listarAgendamentos(){
         return ResponseEntity.ok(service.listarAgendamentos());
+    }
+
+    @GetMapping(params = "data")
+    public ResponseEntity<List<Agendamento>> listarAgendamentosDoDia(@RequestParam LocalDate data){
+        return ResponseEntity.ok(service.listarAgendamentosDoDia(data));
     }
 
     @PostMapping(value = "/{idCliente}", params = "idServico")
