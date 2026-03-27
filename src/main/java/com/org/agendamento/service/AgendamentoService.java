@@ -67,7 +67,6 @@ public class AgendamentoService {
                 .cliente(agendamentoExistente.getCliente())
                 .servico(agendamentoExistente.getServico())
                 .horario(agendamento.getHorario() != null ? agendamento.getHorario() : agendamentoExistente.getHorario())
-                .status(agendamento.getStatus() != null ? agendamento.getStatus() : agendamentoExistente.getStatus())
                 .build();
 
         return agendamentoRepository.saveAndFlush(agendamentoAtualizado);
