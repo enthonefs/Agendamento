@@ -27,14 +27,13 @@ public class ServicoController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable Long id, @RequestBody Servico servico){
-        service.atualizarAgendamento(id, servico);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Servico> atualizar(@PathVariable Long id, @RequestBody Servico servico){
+        return ResponseEntity.ok(service.atualizarAgendamento(id, servico));
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarAgendamento(@PathVariable Long id){
+    public ResponseEntity<Void> deletarServico(@PathVariable Long id){
         service.apagarServico(id);
         return ResponseEntity.ok().build();
     }

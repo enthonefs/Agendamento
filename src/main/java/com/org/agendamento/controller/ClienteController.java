@@ -22,15 +22,14 @@ public class ClienteController {
         return ResponseEntity.ok().body(service.buscarTodos());
     }
 
-    @PostMapping("/{idServico}")
-    public ResponseEntity<Cliente> criarCliente(@PathVariable Long idServico, @RequestBody Cliente cliente){
-        return ResponseEntity.ok(service.criarCliente(idServico, cliente));
+    @PostMapping
+    public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente){
+        return ResponseEntity.ok(service.criarCliente(cliente));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
-        service.atualizarCliente(id, cliente);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
+        return ResponseEntity.ok(service.atualizarCliente(id, cliente));
     }
 
     @DeleteMapping("/{id}")

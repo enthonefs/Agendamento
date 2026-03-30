@@ -22,7 +22,7 @@ public class ServicoService {
     }
 
 
-    public void atualizarAgendamento(Long id, Servico servico){
+    public Servico atualizarAgendamento(Long id, Servico servico){
         Servico servicoAtual = servicoRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Agendamento não encontrado."));
 
@@ -32,7 +32,7 @@ public class ServicoService {
                 .id(servicoAtual.getId())
                 .build();
 
-        servicoRepository.saveAndFlush(servicoAtualizado);
+        return servicoRepository.saveAndFlush(servicoAtualizado);
 
     }
 
